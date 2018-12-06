@@ -2,8 +2,8 @@
 public class ProcessSchedulerTests {
 
   public static void main(String[] args) {
-    testEnqueueCustomProcessQueue(); 
-//    testDequeueCustomProcessQueue();
+//    testEnqueueCustomProcessQueue(); 
+    testDequeueCustomProcessQueue();
   }
   public static boolean testEnqueueCustomProcessQueue(){
     CustomProcessQueue q = new CustomProcessQueue();
@@ -22,6 +22,7 @@ public class ProcessSchedulerTests {
     q.enqueue(new CustomProcess(8));
     q.enqueue(new CustomProcess(4));
     q.enqueue(new CustomProcess(5));
+    q.printHeap();
     System.out.println(q.dequeue().getBurstTime());
     q.printHeap();
     return false;

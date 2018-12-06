@@ -10,7 +10,7 @@ public class CustomProcessQueue implements WaitingQueueADT<CustomProcess>{
   }
 
   public CustomProcess dequeue() {
-    if (isEmpty() != true) {
+    if (!isEmpty()) {
       CustomProcess top = heap[1];
       heap[1] = heap[size];
       heap[size] = null;
@@ -25,63 +25,70 @@ public class CustomProcessQueue implements WaitingQueueADT<CustomProcess>{
     if(p.getBurstTime()<=0) {
       return;
     }
+    if(size >= INITIAL_CAPACITY-1) {
+      doubleSize();
+    }
     size++;
     heap[size] = p;
     minHeapPercolateUp(size);
   }
 
   private void minHeapPercolateUp(int index) { 
-    System.out.println("index:" + index);
     boolean loop = true;
     if(index>1) {
-      System.out.println("test");
-      int next = (int) (index)/2;
+      int next = index/2;
       while(loop) {
-        System.out.println("heap:");
-        printHeap();
         if(heap[index].compareTo(heap[next]) < 0) {
           CustomProcess temp = heap[index];
           heap[index] = heap[next];
           heap[next] = temp;
+          index = next;
         } else {
           loop = false;
         }
       }
     }
-
-    //    if (index != 1) {
-    //      int test = (int) Math.floor((index - 1)/ 2) + 1;
-    //      if (heap[(int) Math.floor((index - 1)/ 2) + 1].getBurstTime() > heap[index].getBurstTime()) {
-    //        // Bring the heap[index] up and call recursively again
-    //        CustomProcess oldNum = heap[Math.floorDiv(index - 1, 2) + 1];
-    //        heap[(int) Math.floor((index - 1)/ 2) + 1] = heap[index];
-    //        heap[index] = oldNum;
-    //        minHeapPercolateUp((int) Math.floor((index - 1)/ 2) + 1);
-    //      }
-    //    }
-
   }
 
   private void minHeapPercolateDown(int index) { 
+    boolean loop = true;
 
-    if (2 * index < (size)) {
-      if (heap[(2 * index)].getBurstTime() < heap[index].getBurstTime()) {
-        CustomProcess oldNum = heap[index];
-        heap[index] = heap[(2 * index)];
-        heap[(2 * index)] = oldNum;
-        minHeapPercolateDown((2 * index));
-      }
-      if ((2 * index) + 1 < size) {
-        if (heap[(2 * index) + 1].getBurstTime() < heap[index].getBurstTime()) {
-          CustomProcess oldNum = heap[index];
-          heap[index] = heap[(2 * index) + 1];
-          heap[(2 * index) + 1] = oldNum;
-          minHeapPercolateDown((2 * index) + 1);
-        }
+    while(loop) { // loops continuously
+      if(index!=0 && index<size) { // makes sure the indexes are in valid range
+        int next = index*2; // finds next index at leftmost branch
+        System.out.println("hi");
+        if(heap[next+1]==null) { // if there is no right branch
+          System.out.println("hiiii");
+          if(heap[index].compareTo(heap[next]) > 0) { // if the next is smaller
+            System.out.println("hey");
+            CustomProcess temp = heap[index]; // temporarily saves value at index
+            heap[index] = heap[next]; // swaps with next
+            heap[next] = temp;
+            index = next;
+          } else {
+            loop = false; // if the next is not smaller then end loop
+          }
+        } 
+//        else { // if there is a right branch
+//          // if one of the branches has a smaller value
+//          if(heap[index].compareTo(heap[next]) > 0 || heap[index].compareTo(heap[next]) > 0 ) {
+//            // if the smaller value is the right branch then change next
+//            if(heap[index].compareTo(heap[next+1]) > 0 && heap[next].compareTo(heap[next+1]) > 0 ) {
+//              next += 1;
+//            }
+//            CustomProcess temp = heap[index];
+//            heap[index] = heap[next];
+//            heap[next] = temp;
+//            index *= 2; // changes to index * 2 because next can become next+1
+//          } else {
+//            loop = false;
+//          }
+//        }
+        System.out.println(loop);
       }
     }
-
   }
+
 
   @Override
   public int size() {
@@ -106,6 +113,14 @@ public class CustomProcessQueue implements WaitingQueueADT<CustomProcess>{
     for(int i=1; i<size+1; i++) {
       System.out.println(heap[i].getBurstTime() + " " + heap[i].getProcessId());
     }
+  }
+
+  private void doubleSize() {
+    CustomProcess[] temp = new CustomProcess[heap.length*2];
+    for(int i=1; i<heap.length; i++) {
+      temp[i] = heap[i];
+    }
+    heap = temp;
   }
 
 }

@@ -16,7 +16,7 @@ public class ProcessScheduler {
       String input = scanner.nextLine().toLowerCase();
       String[] inputParsed = input.split(" ");
       if(inputParsed[0].equals("schedule") || inputParsed[0].equals("s")) {
-        if(Integer.parseInt(inputParsed[1])<=0) {
+        if(inputParsed.length!=2 && Integer.parseInt(inputParsed[1])<=0) {
           System.out.println("WARNING: burst time MUST be greater than 0!\n");
           continue;
         }
