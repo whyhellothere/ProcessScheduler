@@ -2,18 +2,17 @@
 public class ProcessSchedulerTests {
 
   public static void main(String[] args) {
-//    testEnqueueCustomProcessQueue(); 
-    testDequeueCustomProcessQueue();
+    testEnqueueCustomProcessQueue(); 
+//    testDequeueCustomProcessQueue();
   }
   public static boolean testEnqueueCustomProcessQueue(){
-    System.out.println("hi");
     CustomProcessQueue q = new CustomProcessQueue();
-    q.enqueue(new CustomProcess(5));
-    q.enqueue(new CustomProcess(0));
     q.enqueue(new CustomProcess(3));
-    q.enqueue(new CustomProcess(7));
-    q.printHeap();
-    q.dequeue();
+    q.enqueue(new CustomProcess(10));
+    q.enqueue(new CustomProcess(8));
+    q.enqueue(new CustomProcess(0));
+    q.enqueue(new CustomProcess(4));
+    System.out.println("final heap:");
     q.printHeap();
     return false;
   } // checks the correctness of the enqueue 
