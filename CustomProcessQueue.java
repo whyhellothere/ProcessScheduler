@@ -22,7 +22,7 @@ public class CustomProcessQueue implements WaitingQueueADT<CustomProcess>{
   }
 
   public void enqueue(CustomProcess p) {
-    if(size == heap.length) {
+    if(size == (heap.length-1)) {
       doubleSize();
     }
     size++;

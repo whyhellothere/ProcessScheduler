@@ -20,7 +20,7 @@ public class ProcessSchedulerTests {
       passed = false;
     }
     if(passed) {
-      System.out.println("ALL TESTS PASSED!!!!1one");
+      System.out.println("ALL TESTS PASSED!!!!");
     }
   }
   public static boolean testEnqueueCustomProcessQueue(){
@@ -80,29 +80,28 @@ public class ProcessSchedulerTests {
   }
   
   public static boolean testCompareTo() {
-    boolean passed = true;
     CustomProcess a = new CustomProcess(10);
     CustomProcess b = new CustomProcess(10);
     CustomProcess c = new CustomProcess(8);
     CustomProcess d = new CustomProcess(20);
-    if(a.compareTo(b)<0) {
+    if(a.compareTo(b) > 0) {
       System.out.println(a.getProcessId());
       System.out.println(b.getProcessId());
 
       System.out.println(1);
-      passed = false;
+      return false;
     }
     if(a.compareTo(c)<0) {
       System.out.println(2);
 
-      passed = false;
+      return false;
     }
-    if(a.compareTo(d)>0) {
+    if(a.compareTo(d) > 0) {
       System.out.println(3);
 
-      passed = false;
+      return false;
     }
-    return passed;
+    return true;
   }
 
 }
