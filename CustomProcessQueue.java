@@ -22,9 +22,6 @@ public class CustomProcessQueue implements WaitingQueueADT<CustomProcess>{
   }
 
   public void enqueue(CustomProcess p) {
-    if(p.getBurstTime()<=0) {
-      return;
-    }
     if(size >= INITIAL_CAPACITY-1) {
       doubleSize();
     }
