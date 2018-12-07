@@ -16,9 +16,12 @@ public class ProcessScheduler {
       String input = scanner.nextLine().toLowerCase();
       String[] inputParsed = input.split(" ");
       if(inputParsed[0].equals("schedule") || inputParsed[0].equals("s")) {
-        if(inputParsed.length!=2 && Integer.parseInt(inputParsed[1])<=0) {
+        if(Integer.parseInt(inputParsed[1])<=0) {
           System.out.println("WARNING: burst time MUST be greater than 0!\n");
           continue;
+        }
+        if(inputParsed.length!=2) {
+          System.out.println("WARNING: Please enter a valid command!\n");
         }
         schedule.scheduleProcess(new CustomProcess(Integer.parseInt(inputParsed[1])));
       } else if(inputParsed[0].equals("run") || inputParsed[0].equals("r")) {
@@ -45,7 +48,7 @@ public class ProcessScheduler {
 
   public String run() {
     String result = "";
-    if(queue.size()>=1) {
+    if(queue.size()<=1) {
       result += "Starting " + queue.size() + " process\n\n";
     } else {
       result += "Starting " + queue.size() + " processes\n\n";
