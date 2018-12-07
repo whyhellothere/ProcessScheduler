@@ -65,19 +65,21 @@ public class CustomProcessQueue implements WaitingQueueADT<CustomProcess>{
 
   /**
    * Sorts an entry in the queue by moving it down along the array
+   * 
    * @param index is the location of the process being sorted
    */
   private void minHeapPercolateDown(int index) {
     if (index != 0 && index * 2 <= size) { // checks to make sure index is in range
-      if (heap[index].compareTo(heap[index * 2]) > 0) { 
-        CustomProcess oldVar = heap[index * 2];
+      if (heap[index].compareTo(heap[index * 2]) > 0) { // check if the left child node is smaller
+        CustomProcess oldVar = heap[index * 2]; // switch the two and call it recursively
         heap[index * 2] = heap[index];
         heap[index] = oldVar;
         minHeapPercolateDown(2 * index);
       }
       if ((index * 2) + 1 <= size) {
-        if (heap[index].compareTo(heap[(index * 2) + 1]) > 0) {
-          CustomProcess oldVar = heap[(index * 2) + 1];
+        if (heap[index].compareTo(heap[(index * 2) + 1]) > 0) { // check if the right child node is
+                                                                // smaller
+          CustomProcess oldVar = heap[(index * 2) + 1]; // switch the two and call it recursively
           heap[(index * 2) + 1] = heap[index];
           heap[index] = oldVar;
           minHeapPercolateDown((2 * index) + 1);
